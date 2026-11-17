@@ -138,7 +138,7 @@ $tahunKini  = date('Y');
     <div class="mt-14 grid lg:grid-cols-3">
       <!-- Profil Anggota Tim -->
       <div class="flex text-center flex-col items-center gap-5 p-7">
-        <img src="assets/img/profil-icon.jpg" class="w-32 h-32 rounded-full object-cover" alt="">
+        <img src="assets/img/afwan.jpeg" class="w-32 h-32 rounded-full" alt="">
         <div class="min-w-0">
           <p class="text-xl font-extrabold tracking-tight text-slate-900">Muhammad Afwan</p>
           <!-- <p class="text-sm font-bold text-emerald-600">Anggota Tim Distribusi</p> -->
@@ -172,7 +172,7 @@ $tahunKini  = date('Y');
 
     <div class="mt-7 flex flex-col items-center text-center gap-5 rounded-xl bg-white p-7 shadow-card ring-1 ring-slate-100 lg:max-w-3xl">
       <div class="min-w-0 flex flex-col items-center">
-        <img src="assets/img/frida.jpeg" class="w-32 h-32 rounded-full" alt="">
+        <img src="assets/img/frida.jpeg" class="w-32 h-32 rounded-full object-cover" alt="">
         <p class="mt-4 text-xl font-extrabold tracking-tight text-slate-900">Frida Oktafiana Arianti</p>
         <p class="text-sm font-bold text-violet-600">Mentor</p>
         <p class="mt-3 text-sm leading-relaxed text-slate-500">
