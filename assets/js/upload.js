@@ -56,7 +56,7 @@ function fmtSize(bytes) {
     if (j.api !== 'online') throw new Error('offline');
     box.className = 'mb-6 flex items-center gap-2 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700';
     box.innerHTML = '<i class="fa-solid fa-circle-check" aria-hidden="true"></i>'
-      + '<span><b>Layanan analisis aktif</b> di ' + esc(j.url) + ' — file dapat diunggah.</span>';
+      + '<span><b>Layanan analisis aktif</b> file dapat diunggah.</span>';
   } catch (_) {
     box.className = 'mb-6 flex items-center gap-2 rounded-xl border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-800';
     box.innerHTML = '<i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i>'
