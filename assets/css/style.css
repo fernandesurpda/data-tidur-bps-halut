@@ -149,3 +149,10 @@ section[id] { scroll-margin-top: 5.5rem; }
 /* Kartu ikon mengambang di sisi kanan layar*/
 .float-btn { transition: transform .15s ease, background-color .15s ease; }
 .float-btn:hover { transform: translateY(-2px); }
+
+/* ============ Menu mobile (hamburger) ============ */
+#mobileMenu:not(.hidden) { animation: menuDrop .18s ease-out; }
+@keyframes menuDrop {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: none; }
+}

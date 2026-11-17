@@ -64,7 +64,7 @@ $canPanel   = $isAdmin || $isViewer; // boleh membuka dashboard admin
         <a href="index.php" target="_blank" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">Halaman Publik <i class="fa-solid fa-arrow-up-right-from-square ml-1 text-xs" aria-hidden="true"></i></a>
         <a href="logout.php" class="ml-2 rounded-xl bg-slate-900 px-4 py-2 text-white hover:bg-slate-700"><i class="fa-solid fa-right-from-bracket mr-1.5 text-xs" aria-hidden="true"></i>Keluar</a>
       </div>
-      <button id="btnMenu" class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden" aria-label="Buka menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <button id="btnMenu" class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden" aria-label="Buka menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
     <?php else: ?>
       <div class="hidden items-center gap-1 text-sm font-medium md:flex">
         <a href="#ringkasan" class="rounded-lg px-3 py-2 text-slate-600 hover:bg-slate-100">Ringkasan</a>
@@ -83,7 +83,7 @@ $canPanel   = $isAdmin || $isViewer; // boleh membuka dashboard admin
            class="ml-2 rounded-xl bg-slate-900 px-4 py-2 text-white hover:bg-slate-700">
           <i class="fa-solid <?= $canPanel ? 'fa-gauge-high' : 'fa-user-shield' ?> mr-1.5 text-xs" aria-hidden="true"></i><?= $canPanel ? 'Dashboard Admin' : 'Login Admin' ?></a>
       </div>
-      <button id="btnMenu" class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden" aria-label="Buka menu"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
+      <button id="btnMenu" class="rounded-lg p-2 text-slate-600 hover:bg-slate-100 md:hidden" aria-label="Buka menu" aria-expanded="false"><i class="fa-solid fa-bars" aria-hidden="true"></i></button>
     <?php endif; ?>
   </div>
 
@@ -109,8 +109,43 @@ $canPanel   = $isAdmin || $isViewer; // boleh membuka dashboard admin
 </nav>
 
 <script>
-  (function () {
-    var b = document.getElementById('btnMenu'), m = document.getElementById('mobileMenu');
-    if (b && m) b.addEventListener('click', function () { m.classList.toggle('hidden'); });
-  })();
+(function () {
+  if (window.__menuMobileInit) return;
+  window.__menuMobileInit = true;
+
+  var menu   = function () { return document.getElementById('mobileMenu'); };
+  var tombol = function () { return document.getElementById('btnMenu'); };
+
+  var terbuka = function () {
+    var m = menu();
+    return !!m && !m.classList.contains('hidden');
+  };
+
+  var setMenu = function (tampil) {
+    var m = menu(), t = tombol();
+    if (!m || !t) return;
+    m.classList.toggle('hidden', !tampil);
+    t.setAttribute('aria-expanded', tampil ? 'true' : 'false');
+    t.setAttribute('aria-label', tampil ? 'Tutup menu' : 'Buka menu');
+    var i = t.querySelector('i.fa-solid');
+    if (i) {
+      i.classList.toggle('fa-bars', !tampil);
+      i.classList.toggle('fa-xmark', tampil);
+    }
+  };
+
+  document.addEventListener('click', function (ev) {
+    /* Klik tombol hamburger → buka/tutup panel di bawah navbar */
+    if (ev.target.closest('#btnMenu')) { setMenu(!terbuka()); return; }
+    if (!terbuka()) return;
+    /* Klik di luar panel, atau pada salah satu tautan menu → tutup */
+    if (!ev.target.closest('#mobileMenu') || ev.target.closest('#mobileMenu a')) {
+      setMenu(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && terbuka()) setMenu(false);
+  });
+})();
 </script>

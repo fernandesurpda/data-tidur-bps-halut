@@ -1029,9 +1029,6 @@ init();
 })();
 
 (function () {
-  /* Menu mobile buka/tutup */
-  var b = document.getElementById('btnMenu'), m = document.getElementById('mobileMenu');
-  if (b && m) b.addEventListener('click', function () { m.classList.toggle('hidden'); });
 
   /* Jam langsung WIT (Maluku Utara = Asia/Jayapura) — ala jam di kanan atas referensi */
   // var jam = document.getElementById('jamWit');

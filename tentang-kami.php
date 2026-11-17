@@ -62,7 +62,7 @@ $tahunKini  = date('Y');
     </div>
 
     <!-- Tombol menu mobile -->
-    <button id="btnMenu" class="ml-auto rounded-lg p-2 text-slate-600 hover:bg-white md:hidden" aria-label="Buka menu">
+    <button id="btnMenu" class="ml-auto rounded-lg p-2 text-slate-600 hover:bg-white md:hidden" aria-label="Buka menu" aria-expanded="false">
       <i class="fa-solid fa-bars" aria-hidden="true"></i>
     </button>
   </div>
@@ -266,7 +266,43 @@ $tahunKini  = date('Y');
 </footer>
 
 <script>
-  
+(function () {
+  if (window.__menuMobileInit) return;
+  window.__menuMobileInit = true;
+
+  var menu   = function () { return document.getElementById('mobileMenu'); };
+  var tombol = function () { return document.getElementById('btnMenu'); };
+
+  var terbuka = function () {
+    var m = menu();
+    return !!m && !m.classList.contains('hidden');
+  };
+
+  var setMenu = function (tampil) {
+    var m = menu(), t = tombol();
+    if (!m || !t) return;
+    m.classList.toggle('hidden', !tampil);
+    t.setAttribute('aria-expanded', tampil ? 'true' : 'false');
+    t.setAttribute('aria-label', tampil ? 'Tutup menu' : 'Buka menu');
+    var i = t.querySelector('i.fa-solid');
+    if (i) {
+      i.classList.toggle('fa-bars', !tampil);
+      i.classList.toggle('fa-xmark', tampil);
+    }
+  };
+
+  document.addEventListener('click', function (ev) {
+    if (ev.target.closest('#btnMenu')) { setMenu(!terbuka()); return; }
+    if (!terbuka()) return;
+    if (!ev.target.closest('#mobileMenu') || ev.target.closest('#mobileMenu a')) {
+      setMenu(false);
+    }
+  });
+
+  document.addEventListener('keydown', function (ev) {
+    if (ev.key === 'Escape' && terbuka()) setMenu(false);
+  });
+})();
 </script>
 
 </body>
